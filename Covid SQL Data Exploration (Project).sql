@@ -1,3 +1,9 @@
+/*
+COVID_19_EXPLORATION_DATA
+*/
+
+-----------------------------------------------------------------------
+--Looking
 SELECT *
 FROM PortfolioProject..CovidDeaths
 ORDER BY 3,4
@@ -8,7 +14,7 @@ ORDER BY 3,4
 
 
 
-
+-----------------------------------------------------------------------
 --Select data that is being used
 
 SELECT location, date, population, total_cases, total_deaths
@@ -17,7 +23,7 @@ ORDER BY 1,2
 
 
 
-
+-----------------------------------------------------------------------
 --Looking at Total Cases vs Total Deaths
 --Shows likelihood of dying if you contract covid in your country
 
@@ -28,7 +34,7 @@ ORDER BY 1,2
 
 
 
-
+-----------------------------------------------------------------------
 --Looking at Total Cases vs Population
 --Shows what percentage of population got Covid
 
@@ -39,7 +45,7 @@ ORDER BY 1,2
 
 
 
-
+-----------------------------------------------------------------------
 --Looking at Countries with Highest Infection Rate compared to Population
 
 SELECT location, Max(total_cases) as highest_infection_count, Max((total_cases/ population)*100) as percent_population_infected
@@ -50,7 +56,7 @@ ORDER BY percent_population_infected DESC
 
 
 
-
+-----------------------------------------------------------------------
 --Looking at Countries with Highest Death Count per Population
 
 SELECT location, Max(total_deaths) as total_death_count
@@ -60,7 +66,8 @@ WHERE continent is not null
 GROUP BY location, population
 ORDER BY total_death_count DESC
 
-
+	
+-----------------------------------------------------------------------
 --Let's break things down by continent
 --Showing continents with the highest death count per population
 
@@ -71,7 +78,7 @@ GROUP BY continent
 ORDER BY total_death_count DESC
 
 
-
+-----------------------------------------------------------------------
 --GLOBAL NUMBERS
 
 SELECT sum(new_cases) as total_cases, sum(new_deaths) as total_deaths, (sum(new_deaths)/sum(new_cases))*100 as death_percentage
@@ -81,7 +88,7 @@ ORDER BY 1,2
 
 
 
-
+-----------------------------------------------------------------------
 --Use CTE
 
 WITH PopvsVac (Continet, Location, Date,Population, New_vaccinations, Rolling_people_vaccinated)
@@ -104,7 +111,7 @@ FROM PopvsVac
 
 
 
-
+-----------------------------------------------------------------------
 --TEMP TABLE
 
 DROP TABLE IF EXISTS #PercentPopulationVaccinated
@@ -134,7 +141,7 @@ FROM #PercentPopulationVaccinated
 
 
 
-
+-----------------------------------------------------------------------
 --Creating Views to store data for later visualizations
 
 CREATE VIEW PercentPopulationVaccinated AS
